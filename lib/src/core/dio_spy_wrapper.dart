@@ -19,6 +19,7 @@ class DioSpyWrapper extends StatelessWidget {
     super.key,
     required this.dioSpy,
     required this.child,
+    this.title,
   });
 
   /// The [DioSpy] instance to connect to.
@@ -26,6 +27,8 @@ class DioSpyWrapper extends StatelessWidget {
 
   /// The child widget (typically the app's Navigator from MaterialApp.builder).
   final Widget child;
+
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +70,7 @@ class DioSpyWrapper extends StatelessWidget {
                     builder: (_) => CallListScreen(
                       storage: dioSpy.storage,
                       onBack: dioSpy.hideInspector,
+                      title: title,
                     ),
                   ),
                 ),

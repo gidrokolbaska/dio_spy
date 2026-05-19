@@ -10,10 +10,12 @@ import '../widgets/method_chip.dart';
 import '../widgets/status_chip.dart';
 
 class CallListScreen extends StatefulWidget {
-  const CallListScreen({super.key, required this.storage, this.onBack});
+  const CallListScreen(
+      {super.key, required this.storage, this.onBack, this.title});
 
   final DioSpyStorage storage;
   final VoidCallback? onBack;
+  final String? title;
 
   @override
   State<CallListScreen> createState() => _CallListScreenState();
@@ -79,7 +81,7 @@ class _CallListScreenState extends State<CallListScreen> {
     Widget screen = Theme(
       data: DioSpyTheme.themeData(context),
       child: Scaffold(
-        appBar: _buildAppBar(),
+        appBar: _buildAppBar(widget.title),
         body: Column(
           children: [
             // Search bar
@@ -114,10 +116,11 @@ class _CallListScreenState extends State<CallListScreen> {
     return screen;
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(String? title) {
     return AppBar(
-      title: const Text('SPY x DIO'),
-      leading: widget.onBack != null ? BackButton(onPressed: widget.onBack) : null,
+      title: Text(title ?? 'SPY x DIO'),
+      leading:
+          widget.onBack != null ? BackButton(onPressed: widget.onBack) : null,
       actions: [
         IconButton(
           icon: Icon(_searching ? Icons.search_off : Icons.search),
