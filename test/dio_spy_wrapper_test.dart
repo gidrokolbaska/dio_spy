@@ -9,7 +9,7 @@ void main() {
     late DioSpy dioSpy;
 
     setUp(() {
-      dioSpy = DioSpy(showOnShake: false, maxCalls: 100);
+      dioSpy = DioSpy(maxCalls: 100);
     });
 
     tearDown(() {
@@ -48,7 +48,7 @@ void main() {
     late DioSpy dioSpy;
 
     setUp(() {
-      dioSpy = DioSpy(showOnShake: false, maxCalls: 100);
+      dioSpy = DioSpy(maxCalls: 100);
     });
 
     tearDown(() {
@@ -77,7 +77,8 @@ void main() {
       expect(find.byType(CallListScreen), findsNothing);
     });
 
-    testWidgets('should show inspector when dioSpy.show() is called', (tester) async {
+    testWidgets('should show inspector when dioSpy.show() is called',
+        (tester) async {
       await tester.pumpWidget(buildTestApp());
 
       dioSpy.showInspector();
@@ -95,7 +96,8 @@ void main() {
       expect(find.byIcon(Icons.close), findsOneWidget);
     });
 
-    testWidgets('should hide inspector when close button is tapped', (tester) async {
+    testWidgets('should hide inspector when close button is tapped',
+        (tester) async {
       await tester.pumpWidget(buildTestApp());
 
       dioSpy.showInspector();
@@ -111,7 +113,8 @@ void main() {
       expect(dioSpy.inspectorVisible.value, isFalse);
     });
 
-    testWidgets('should hide inspector when hideInspector() is called', (tester) async {
+    testWidgets('should hide inspector when hideInspector() is called',
+        (tester) async {
       await tester.pumpWidget(buildTestApp());
 
       dioSpy.showInspector();
@@ -136,7 +139,8 @@ void main() {
       expect(find.byType(CallListScreen), findsOneWidget);
     });
 
-    testWidgets('should allow reopening inspector after closing', (tester) async {
+    testWidgets('should allow reopening inspector after closing',
+        (tester) async {
       await tester.pumpWidget(buildTestApp());
 
       // Open
@@ -155,7 +159,8 @@ void main() {
       expect(find.byType(CallListScreen), findsOneWidget);
     });
 
-    testWidgets('should work with DioSpyWrapper widget directly', (tester) async {
+    testWidgets('should work with DioSpyWrapper widget directly',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           builder: (context, child) => DioSpyWrapper(
@@ -176,7 +181,8 @@ void main() {
   });
 
   group('CallListScreen onClose', () {
-    testWidgets('should not show close button when onClose is null', (tester) async {
+    testWidgets('should not show close button when onClose is null',
+        (tester) async {
       final storage = DioSpyStorage(maxCalls: 100);
 
       await tester.pumpWidget(
@@ -188,7 +194,8 @@ void main() {
       expect(find.byIcon(Icons.close), findsNothing);
     });
 
-    testWidgets('should show close button when onClose is provided', (tester) async {
+    testWidgets('should show close button when onClose is provided',
+        (tester) async {
       final storage = DioSpyStorage(maxCalls: 100);
       var closed = false;
 

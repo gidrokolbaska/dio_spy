@@ -31,7 +31,6 @@ class _MyAppState extends State<MyApp> {
   void _initializeDio() {
     // Initialize DioSpy with shake gesture enabled
     _dioSpy = DioSpy(
-      showOnShake: true,
       maxCalls: 1000,
     );
 

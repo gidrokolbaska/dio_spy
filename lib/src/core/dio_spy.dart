@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shake_gesture/shake_gesture.dart';
 
 import '../ui/call_list/call_list_screen.dart';
 import 'dio_spy_interceptor.dart';
@@ -33,14 +32,9 @@ import 'dio_spy_storage.dart';
 /// ```
 ///
 class DioSpy {
-  DioSpy({bool showOnShake = true, int maxCalls = 1000}) {
+  DioSpy({int maxCalls = 1000}) {
     _storage = DioSpyStorage(maxCalls: maxCalls);
     _interceptor = DioSpyInterceptor(_storage);
-
-    if (showOnShake) {
-      _onShake = showInspector;
-      ShakeGesture.registerCallback(onShake: _onShake!);
-    }
   }
 
   late final DioSpyStorage _storage;
@@ -49,7 +43,6 @@ class DioSpy {
 
   GlobalKey<NavigatorState>? _navigatorKey;
   VoidCallback? _navigatorKeyListener;
-  VoidCallback? _onShake;
 
   /// Storage of captured HTTP calls.
   DioSpyStorage get storage => _storage;
@@ -77,7 +70,8 @@ class DioSpy {
           return;
         }
         navigator
-            .push(MaterialPageRoute(builder: (_) => CallListScreen(storage: _storage)))
+            .push(MaterialPageRoute(
+                builder: (_) => CallListScreen(storage: _storage)))
             .then((_) => _inspectorVisible.value = false);
       }
     };
@@ -96,9 +90,6 @@ class DioSpy {
 
   /// Releases resources. Call when no longer needed.
   void dispose() {
-    if (_onShake != null) {
-      ShakeGesture.unregisterCallback(onShake: _onShake!);
-    }
     if (_navigatorKeyListener != null) {
       _inspectorVisible.removeListener(_navigatorKeyListener!);
       _navigatorKeyListener = null;
